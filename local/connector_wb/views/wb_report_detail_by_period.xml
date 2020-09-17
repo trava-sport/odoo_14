@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_report_detail_by_period_action' model='ir.actions.act_window'>
+        <field name="name">Sales report on sales</field>
+        <field name="res_model">wb.report.detail</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Report detail by period" id="wb_report_detail_by_period_menu" parent="wb_reports_menu" action="wb_report_detail_by_period_action"/>
+
+    <record id="wb_report_detail_by_period_view_tree" model="ir.ui.view">
+        <field name="name">Report detail by period</field>
+        <field name="model">wb.report.detail</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="realizationreport_id" optional="show"/>
+                <field name="suppliercontract_code" optional="show"/>
+                <field name="rr_dt_and_time" optional="show"/>
+                <field name="rrd_id" optional="show"/>
+                <field name="gi_id" optional="show"/>
+                <field name="subject_name" optional="show"/>
+                <field name="nm_id" optional="show"/>
+                <field name="brand_name" optional="show"/>
+                <field name="sa_name" optional="show"/>
+                <field name="ts_name" optional="show"/>
+                <field name="barcode" optional="show"/>
+                <field name="doc_type_name" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="nds" optional="show"/>
+                <field name="cost_amount" optional="show"/>
+                <field name="retail_price" optional="show"/>
+                <field name="retail_amount" optional="show"/>
+                <field name="retail_commission" optional="show"/>
+                <field name="sale_percent" optional="show"/>
+                <field name="commission_percent" optional="show"/>
+                <field name="customer_reward" optional="show"/>
+                <field name="supplier_reward" optional="show"/>
+                <field name="office_name" optional="show"/>
+                <field name="supplier_oper_name" optional="show"/>
+                <field name="order_dt" optional="show"/>
+                <field name="sale_dt" optional="show"/>
+                <field name="shk_id" optional="show"/>
+                <field name="retail_price_withdisc_rub" optional="show"/>
+                <field name="for_pay" optional="show"/>
+                <field name="for_pay_nds" optional="show"/>
+                <field name="delivery_amount" optional="show"/>
+                <field name="return_amount" optional="show"/>
+                <field name="delivery_rub" optional="show"/>
+                <field name="gi_box_type_name" optional="show"/>
+                <field name="product_discount_for_report" optional="show"/>
+                <field name="supplier_promo" optional="show"/>
+                <field name="supplier_spp" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

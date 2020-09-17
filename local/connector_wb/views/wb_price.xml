@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_price_action' model='ir.actions.act_window'>
+        <field name="name">Pricing on wildberries</field>
+        <field name="res_model">wb.price</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Pricing on wildberries" id="wb_price_menu" parent="wb_base_menu" action="wb_price_action"/>
+
+    <record id="wb_price_view_form" model="ir.ui.view">
+        <field name="name">Pricing on wildberries Form</field>
+        <field name="model">wb.price</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="brand"/>
+                        <field name="subject"/>
+                        <field name="collection"/>
+                        <field name="supplier_article"/>
+                        <field name="nomenclature"/>
+                        <field name="last_barcode"/>
+                        <field name="number_days_site"/>
+                    </group>
+                    <group>
+                        <field name="unmarketable"/>
+                        <field name="date_Unmarketable"/>
+                        <field name="turnover"/>
+                        <field name="remainder_goods"/>
+                    </group>
+                    <group name="retail_price_grp" string="Retail price">
+                            <field name="current_retail_price"/>
+                            <field name="new_retail_price"/>
+                    </group>
+                    <group name="discount_grp" string="Discount">
+                            <field name="current_discount_site"/>
+                            <field name="recommended_discount"/>
+                            <field name="agreed_discount"/>
+                    </group>
+                    <group name="promo_code_grp" string="Promo code discount">
+                            <field name="current_promo_code_discount"/>
+                            <field name="new_promo_code_discount"/>
+                    </group>
+                    <group name="current_price_discounts_grp" string="Current price with discounts">
+                            <field name="current_price_discounts"/>
+                            <field name="current_price_disc_promo_code"/>
+                    </group>
+                    <group name="new_price_discounts_grp" string="New price with discounts">
+                            <field name="new_price_discounts"/>
+                            <field name="new_price_disc_promo_code"/>
+                    </group>
+                    <group name="purchase_value_grp" string="Purchase value">
+                            <field name="standard_price"/>
+                    </group>
+                    <group name="net_profit_grp" string="Net profit">
+                            <field name="current_net_profit"/>
+                            <field name="new_net_profit"/>
+                    </group>
+                    <group name="balances_grp" string="Balances and number of sales">
+                            <field name="number_of_sales" optional="show"/>
+                            <field name="remains" optional="show"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="wb_price_view_tree" model="ir.ui.view">
+        <field name="name">Pricing on wildberries List</field>
+        <field name="model">wb.price</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="brand" optional="show"/>
+                <field name="subject" optional="show"/>
+                <field name="collection" optional="hide"/>
+                <field name="supplier_article" optional="show"/>
+                <field name="nomenclature" optional="show"/>
+                <field name="last_barcode" optional="show"/>
+                <field name="number_days_site" optional="show"/>
+                <field name="unmarketable" optional="show"/>
+                <field name="date_Unmarketable" optional="show"/>
+                <field name="turnover" optional="show"/>
+                <field name="remainder_goods" optional="show"/>
+                <field name="current_retail_price" optional="show"/>
+                <field name="new_retail_price" readonly="0" optional="show"/>
+                <field name="current_discount_site" optional="show"/>
+                <field name="recommended_discount" optional="show"/>
+                <field name="agreed_discount" optional="show"/>
+                <field name="current_promo_code_discount" optional="show"/>
+                <field name="new_promo_code_discount" optional="show"/>
+                <field name="current_price_discounts" optional="show"/>
+                <field name="current_price_disc_promo_code" optional="show"/>
+                <field name="new_price_discounts" optional="show"/>
+                <field name="new_price_disc_promo_code" optional="show"/>
+                <field name="standard_price" optional="show"/>
+                <field name="current_net_profit" optional="show"/>
+                <field name="new_net_profit" optional="show"/>
+                <field name="number_of_sales" optional="show"/>
+                <field name="remains" optional="show"/>
+                <!-- <field name="price_per_piece" optional="show"/> -->
+            </tree>
+        </field>
+    </record>
+
+</odoo>

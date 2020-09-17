@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_create_com_agent_report" model="ir.ui.view">
+        <field name="name">Create commission agent report</field>
+        <field name="model">create.com.agent.report</field>
+        <field name="arch" type="xml">
+            <form string="Create agent report">
+                <p class="oe_grey">
+                        Invoices will be created in draft so that you can review
+                        them before validation.
+                </p>
+                <group>
+                    <field name="partner_id"/>
+                    <field name="agreement_id"/>
+                    <field name="commission_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="create_com_agent_report" string="Create agent reports" type="object" class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_create_agent_report" model="ir.actions.act_window">
+        <field name="name">Create agent reports</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">create.com.agent.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(4,ref('sales_team.group_sale_salesman'))]"/>
+        <!-- TODO: check if we need this -->
+        <!-- <field name="binding_model_id" ref="sale.model_sale_order" /> -->
+        <!-- <field name="binding_view_types">list</field> -->
+    </record>
+
+    <menuitem id="menu_create_agent_report" parent="menu_sale_commissions_management" sequence="30" action="action_view_create_agent_report"/>
+
+</odoo>

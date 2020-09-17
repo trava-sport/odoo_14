@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_stocks_action' model='ir.actions.act_window'>
+        <field name="name">Stocks</field>
+        <field name="res_model">wb.stocks</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Stocks" id="wb_stocks_menu" parent="wb_reports_menu" action="wb_stocks_action"/>
+
+    <record id="wb_stocks_view_tree" model="ir.ui.view">
+        <field name="name">Stocks</field>
+        <field name="model">wb.stocks</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="last_change_date" optional="show"/>
+                <field name="supplier_article" optional="show"/>
+                <field name="tech_size" optional="show"/>
+                <field name="barcode" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="is_supply" optional="show"/>
+                <field name="is_realization" optional="show"/>
+                <field name="quantity_full" optional="show"/>
+                <field name="quantity_not_in_orders" optional="show"/>
+                <field name="warehouse_name" optional="show"/>
+                <field name="in_way_to_client" optional="show"/>
+                <field name="in_way_from_client" optional="show"/>
+                <field name="nmid" optional="show"/>
+                <field name="subject" optional="show"/>
+                <field name="category" optional="show"/>
+                <field name="days_on_site" optional="show"/>
+                <field name="brand" optional="show"/>
+                <field name="sccode" optional="show"/>
+                <field name="price" optional="show"/>
+                <field name="discount" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

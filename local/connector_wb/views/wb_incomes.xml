@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='wb_incomes_action' model='ir.actions.act_window'>
+        <field name="name">Incomes</field>
+        <field name="res_model">wb.incomes</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem name="Wildberries" id="wb_base_menu" />
+    <menuitem name="WB reports" id="wb_reports_menu" parent="wb_base_menu"/>
+    <menuitem name="Incomes" id="wb_incomes_menu" parent="wb_reports_menu" action="wb_incomes_action"/>
+
+    <record id="wb_incomes_view_tree" model="ir.ui.view">
+        <field name="name">Incomes List</field>
+        <field name="model">wb.incomes</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="incomeid" optional="show"/>
+                <field name="number" optional="show"/>
+                <field name="date" optional="show"/>
+                <field name="last_change_date" optional="show"/>
+                <field name="supplier_article" optional="show"/>
+                <field name="tech_size" optional="show"/>
+                <field name="barcode" optional="show"/>
+                <field name="quantity" optional="show"/>
+                <field name="total_price" optional="show"/>
+                <field name="date_close" optional="show"/>
+                <field name="warehouse_name" optional="show"/>
+                <field name="nmid" optional="show"/>
+                <field name="status" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

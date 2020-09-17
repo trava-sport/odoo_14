@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+
+    <record id="wb_detail_sales_report_form" model="ir.ui.view">
+        <field name="name">wb_detail_sales_report.form</field>
+        <field name="model">wb.detail.sales.report</field>
+        <field name="arch" type="xml">
+            <form string="Detailed sales reports">
+                <!-- <header>
+                    <field name="authorized_transaction_ids" invisible="1"/>
+                    <button name="payment_action_capture" type="object" string="Capture Transaction" class="oe_highlight" attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+                    <button name="payment_action_void" type="object" string="Void Transaction" confirm="Are you sure you want to void the authorized transaction? This action can't be undone." attrs="{'invisible': [('authorized_transaction_ids', '=', [])]}"/>
+                    <button name="create_invoices" string="Create Invoice" type="object" class="btn-primary" attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+                    <button name="create_invoices" string="Create Invoice" type="object" context="{'default_advance_payment_method': 'percentage'}" attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}"/>
+                    <button name="action_confirm" string="Confirm" type="object" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                    <button name="action_cancel" states="draft,sent,sale" type="object" string="Cancel"/>
+                    <button name="action_draft" states="cancel" type="object" string="Set to Quotation"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sale"/>
+                </header> -->
+                <sheet>
+                    <!-- <div class="oe_button_box" name="button_box">
+                        <button name="preview_sale_order" type="object" class="oe_stat_button" icon="fa-globe icon">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Customer</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                        <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 0)]}">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+                    </div> -->
+
+                    <div>
+                        <h1>
+                        <field name="name" style="width:15%" readonly="1"/>from 
+                        <field name="date_report" class="oe_inline" nolabel="1" groups="base.group_no_one" style="width:10%"/>
+                    </h1>
+                </div>
+                <group name="main">
+                    <group name="left">
+                        <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                    </group>
+
+                    <group name="right">
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="agreement_id" domain="[('partner_id', 'child_of', commercial_partner_id), ('domain', '=', 'sale')]" context="{'default_partner_id': commercial_partner_id, 'default_domain': 'sale'}"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="commercial_partner_id" invisible="1"/>
+                    </group>
+                </group>
+            <notebook>
+                <page name="config" string="Configuration">
+                    <field name="report_line" widget="section_and_note_one2many" mode="tree,kanban">
+                        <tree name="Report Lines" editable="bottom">
+
+                            <field name="product_id" widget="product_configurator" optional="show"/>
+                            <field name="realizationreport_id" optional="show"/>
+                            <field name="suppliercontract_code" optional="show"/>
+                            <field name="rr_dt_and_time" optional="show"/>
+                            <field name="rrd_id" optional="show"/>
+                            <field name="gi_id" optional="show"/>
+                            <field name="subject_name" optional="show"/>
+                            <field name="nm_id" optional="show"/>
+                            <field name="brand_name" optional="show"/>
+                            <field name="sa_name" optional="show"/>
+                            <field name="ts_name" optional="show"/>
+                            <field name="barcode" optional="show"/>
+                            <field name="doc_type_name" optional="show"/>
+                            <field name="quantity" optional="show"/>
+                            <field name="nds" optional="show"/>
+                            <field name="cost_amount" optional="show"/>
+                            <field name="retail_price" optional="show"/>
+                            <field name="retail_amount" optional="show"/>
+                            <field name="retail_commission" optional="show"/>
+                            <field name="sale_percent" optional="show"/>
+                            <field name="commission_percent" optional="show"/>
+                            <field name="customer_reward" optional="show"/>
+                            <field name="supplier_reward" optional="show"/>
+                            <field name="office_name" optional="show"/>
+                            <field name="supplier_oper_name" optional="show"/>
+                            <field name="order_dt" optional="show"/>
+                            <field name="sale_dt" optional="show"/>
+                            <field name="shk_id" optional="show"/>
+                            <field name="retail_price_withdisc_rub" optional="show"/>
+                            <field name="for_pay" optional="show"/>
+                            <field name="for_pay_nds" optional="show"/>
+                            <field name="delivery_amount" optional="show"/>
+                            <field name="return_amount" optional="show"/>
+                            <field name="delivery_rub" optional="show"/>
+                            <field name="gi_box_type_name" optional="show"/>
+                            <field name="product_discount_for_report" optional="show"/>
+                            <field name="supplier_promo" optional="show"/>
+                            <field name="supplier_spp" optional="show"/>
+                            <field name="standard_price" optional="show"/>
+                            <field name="net_profit" optional="show"/>
+                        </tree>
+                    </field>
+                    <group name="note_group">
+                        <group name="sale_total" string='Warehouse storage'>
+                            <field name="sales_amount" />
+                            <field name="amount_commission_wb" />
+                        </group>
+                        <group name="amount_transfer_supplier" string='To transfer to the supplier'>
+                            <field name="amount_transfer_supplier" />
+                            <label for="total_percentage_WB"/>
+                            <div>
+                                <field name="total_percentage_WB" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                        </group>
+                        <group name="logistics" string='Logistics'>
+                            <field name="logistics" />
+                            <label for="percentage_logistic"/>
+                            <div>
+                                <field name="percentage_logistic" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                        </group>
+                        <group name="warehouse_storage" string='Warehouse storage'>
+                            <field name="warehouse_storage" />
+                            <label for="percentage_storage"/>
+                            <div>
+                                <field name="percentage_storage" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                        </group>
+                        <group name="received_bank_account" string='Received to your Bank account'>
+                            <field name="received_bank_account" />
+                        </group>
+                        <group name="sum_wholesale_prices" string='Sum of the wholesale prices'>
+                            <field name="sum_wholesale_prices" />
+                            <label for="percentage_purchases"/>
+                            <div>
+                                <field name="percentage_purchases" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                        </group>
+                        <group name="amount_net_income" string='Amount of net income'>
+                            <field name="amount_net_income" />
+                            <label for="percentage_net_income"/>
+                            <div>
+                                <field name="percentage_net_income" class="oe_inline"/>
+                                <span>%</span>
+                            </div>
+                        </group>
+                         <group name="number_of_sales" string='Total number of sales and by city'>
+                            <field name="total_number_sales"/>
+                            <field name="total_number_sales_ekb"/>
+                            <field name="total_number_sales_kras"/>
+                            <field name="total_number_sales_kazan"/>
+                            <field name="total_number_sales_novosib"/>
+                            <field name="total_number_sales_spb"/>
+                            <field name="total_number_sales_khab"/>
+                            <field name="total_number_sales_koledino"/>
+                        </group>
+                        <group name="average_wholesale_sale_price" string='Average purchase and sale price'>
+                            <field name="average_wholesale_price" />
+                            <field name="average_selling_price" />
+                        </group>
+                        <div class="oe_clear"/>
+                    </group>
+                </page>
+                <page string="Other Info" name="other_information">
+                    <group>
+                        <group name="sales_person" string="Sales">
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </sheet>
+        <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+        </div>
+    </form>
+</field>
+</record>
+
+    <record id="wb_detail_sales_report_tree" model="ir.ui.view">
+        <field name="name">wb_detail_sales_report.tree</field>
+        <field name="model">wb.detail.sales.report</field>
+        <field name="arch" type="xml">
+            <tree string="Detailed sales reports">
+                <field name="name" optional="show"/>
+                <field name="company_id" optional="show"/>
+                <field name="partner_id" optional="show"/>
+                <field name="sales_amount" optional="show"/>
+                <field name="amount_commission_wb" optional="show"/>
+                <field name="amount_transfer_supplier" optional="show"/>
+                <field name="total_percentage_WB" optional="show"/>
+                <field name="logistics" optional="show"/>
+                <field name="percentage_logistic" optional="show"/>
+                <field name="warehouse_storage" optional="show"/>
+                <field name="percentage_storage" optional="show"/>
+                <field name="received_bank_account" optional="show"/>
+                <field name="sum_wholesale_prices" optional="show"/>
+                <field name="percentage_purchases" optional="show"/>
+                <field name="amount_net_income" optional="show"/>
+                <field name="percentage_net_income" optional="show"/>
+                <field name="total_number_sales" optional="show"/>
+                <field name="average_wholesale_price" optional="show"/>
+                <field name="average_selling_price" optional="show"/>
+                <field name="total_number_sales_ekb" optional="show"/>
+                <field name="total_number_sales_kras" optional="show"/>
+                <field name="total_number_sales_kazan" optional="show"/>
+                <field name="total_number_sales_novosib" optional="show"/>
+                <field name="total_number_sales_spb" optional="show"/>
+                <field name="total_number_sales_khab" optional="show"/>
+                <field name="total_number_sales_koledino" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- <record id="agreement_search" model="ir.ui.view">
+        <field name="name">agreement.search</field>
+        <field name="model">agreement</field>
+        <field name="arch" type="xml">
+            <search string="Search Agreements">
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]" string="Name or Number"/>
+                <field name="partner_id"/>
+                <separator/>
+                <filter name="sale" string="Sale" domain="[('domain', '=', 'sale')]"/>
+                <filter name="purchase" string="Purchase" domain="[('domain', '=', 'purchase')]"/>
+                <separator/>
+                <filter name="inactive" string="Archived" domain="[('active', '=', False)]"/>
+                <group name="groupby">
+                    <filter name="partner_groupby" string="Partner" context="{'group_by': 'partner_id'}"/>
+                    <filter name="signature_date_groupby" string="Signature Date" context="{'group_by': 'signature_date'}"/>
+                    <filter name="domain_groupby" string="Domain" context="{'group_by': 'domain'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+
+    <record id="action_wb_detail_sales_report" model="ir.actions.act_window">
+        <field name="name">Detailed sales reports</field>
+        <field name="res_model">wb.detail.sales.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- Top menu item -->
+    <menuitem name="Detailed sales reports" id="menu_detail_sales_report" parent="wb_base_menu"/>
+    <menuitem name="Detailed sales reports" id="menu_detail_sales_report_1" parent="menu_detail_sales_report" action="action_wb_detail_sales_report" sequence="6" />
+
+</odoo>
